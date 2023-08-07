@@ -44,4 +44,11 @@ public class DetailRepository implements Details {
                 .setParameter("uuid", uuid)
                 .getSingleResult();
     }
+
+    @Override
+    public void removeDetail(UUID uuid) {
+        this.entityManager.createQuery(
+                "DELETE FROM Detail d where d.uuid = :uuid"
+        ).setParameter("uuid", uuid).executeUpdate();
+    }
 }

@@ -34,24 +34,23 @@ public class FavoriteRepository implements Favorites {
     }
 
     @Override
-    public Long countByDetailAndUserId(Detail detail, Long userId) {
+    public Long countByDetailAndUserId(Detail detail) {
         return this.entityManager
                 .createQuery(
                         "SELECT COUNT(f) FROM Favorite f " +
-                                "WHERE f.detail = :detail AND f.userId = :userId",
+                                "WHERE f.detail = :detail",
                 Long.class)
                 .setParameter("detail", detail)
                 .getSingleResult();
     }
 
     @Override
-    public Favorite getByDetailAndUserId(Detail detail, Long userId) {
+    public Favorite getByDetailAndUserId(Detail detail) {
         return this.entityManager.createQuery(
                 "SELECT f FROM Favorite f " +
-                        "WHERE f.detail = :detail AND f.userId = :userId",
+                        "WHERE f.detail = :detail",
                 Favorite.class)
                 .setParameter("detail", detail)
-                .setParameter("userId", userId)
                 .getSingleResult();
 
     }
