@@ -15,11 +15,11 @@ public class DetailInfoService {
         this.favorites = favorites;
     }
 
-    public DetailResult getDetailByUuid(UUID uuid, Long userId) {
+    public DetailResult getDetailByUuid(UUID uuid) {
         Detail detail = this.details.getByUuid(uuid);
         DetailResult detailResult = DetailResult.from(detail);
 
-        if (this.favorites.countByDetailAndUserId(detail, userId) > 0) {
+        if (this.favorites.countByDetailAndUserId(detail) > 0) {
             detailResult.makeItFavorite();
         }
 

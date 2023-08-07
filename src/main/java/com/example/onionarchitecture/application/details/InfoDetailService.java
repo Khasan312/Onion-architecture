@@ -19,7 +19,7 @@ public class InfoDetailService {
         Detail detail = details.getByUuid(uuid);
         DetailResult detailResult = DetailResult.from(detail);
 
-        if (this.favorites.countByDetailAndUserId(detail, userId) > 0) {
+        if (this.favorites.countByDetailAndUserId(detail) > 0) {
             detailResult.makeItFavorite();
         }
 

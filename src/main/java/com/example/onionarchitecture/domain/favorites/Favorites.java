@@ -9,6 +9,6 @@ public interface Favorites {
     void update(Favorite favorite);
 
     void remove(Favorite favorite);
-    Long countByDetailAndUserId(Detail detail, Long userId);
-    Favorite getByDetailAndUserId(Detail detail, Long userId);
+    Long countByDetailAndUserId(Detail detail);
+    Favorite getByDetailAndUserId(Detail detail);
 }

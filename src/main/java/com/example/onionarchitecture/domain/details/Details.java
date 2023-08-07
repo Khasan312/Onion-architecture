@@ -11,5 +11,7 @@ public interface Details {
     void update(Detail detail);
     Detail getByUuid(UUID uuid);
 
+    void removeDetail(UUID uuid);
+
 
 }

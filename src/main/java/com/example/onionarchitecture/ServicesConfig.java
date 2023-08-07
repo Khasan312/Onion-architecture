@@ -23,6 +23,11 @@ public class ServicesConfig {
     }
 
     @Bean
+    public DetailDeleteService detailDeleteService() {
+        return new DetailDeleteService(details());
+    }
+
+    @Bean
     public Favorites favorites() {
         return new FavoriteRepository();
     }

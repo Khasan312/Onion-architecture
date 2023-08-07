@@ -18,8 +18,8 @@ public class FavoriteService {
 
     public void addToFavorites(UUID uuid, Long userId) {
         Detail detail = this.details.getByUuid(uuid);
-        if (this.favorites.countByDetailAndUserId(detail, userId) > 0) {
-            Favorite favorite = this.favorites.getByDetailAndUserId(detail, userId);
+        if (this.favorites.countByDetailAndUserId(detail) > 0) {
+            Favorite favorite = this.favorites.getByDetailAndUserId(detail);
             this.favorites.remove(favorite);
         }
         this.favorites.add(new Favorite(detail, userId));

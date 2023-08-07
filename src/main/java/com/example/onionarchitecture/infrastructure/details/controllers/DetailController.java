@@ -19,17 +19,19 @@ public class DetailController {
     private final UpdateDetailService updateDetailService;
     private final FavoriteService favoriteService;
     private final DetailInfoService detailInfoService;
+    private final DetailDeleteService detailDeleteService;
 
     public DetailController(CreateDetailService createDetailService,
                             DetailListService detailListService,
                             UpdateDetailService updateDetailService,
                             FavoriteService favoriteService,
-                            DetailInfoService detailInfoService) {
+                            DetailInfoService detailInfoService, DetailDeleteService detailDeleteService) {
         this.createDetailService = createDetailService;
         this.detailListService = detailListService;
         this.updateDetailService = updateDetailService;
         this.favoriteService = favoriteService;
         this.detailInfoService = detailInfoService;
+        this.detailDeleteService = detailDeleteService;
     }
 
     @PostMapping("/add")
@@ -54,7 +56,6 @@ public class DetailController {
     public ResponseEntity<DetailResponse> updateDetail(
         @RequestBody UpdateDetailRequest request,
         @PathVariable("uuid") UUID uuid
-//        @PathVariable("userId") Long userId
     ) {
         DetailInfo detailInfo = new DetailInfo(
                 request.brand,
@@ -72,9 +73,20 @@ public class DetailController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<DetailResponse> getDetailByUuid(@PathVariable("uuid") UUID uuid,
-                                                          @PathVariable("userId") Long userId) {
+    public ResponseEntity<DetailResponse> getDetailByUuid(@PathVariable("uuid") UUID uuid) {
         return new ResponseEntity<>(DetailResponse.fromDetailResult(
-                this.detailInfoService.getDetailByUuid(uuid, userId)), HttpStatus.OK);
+                this.detailInfoService.getDetailByUuid(uuid)), HttpStatus.OK);
+    }
+
+    @GetMapping("/{uuid}/favorites")
+    public ResponseEntity<DetailResponse> getFavoriteDetailByUuid(@PathVariable("uuid") UUID uuid) {
+        return new ResponseEntity<>(DetailResponse.fromDetailResult(
+                this.detailInfoService.getDetailByUuid(uuid)), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{uuid}")
+    public ResponseEntity<String> removeDetail(@PathVariable("uuid") UUID uuid) {
+        this.detailDeleteService.deleteDetail(uuid);
+        return new ResponseEntity<>("Deleted", HttpStatus.OK);
     }
 }
